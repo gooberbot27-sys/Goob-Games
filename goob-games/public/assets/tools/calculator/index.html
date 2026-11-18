@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculator</title>
+<link rel="stylesheet" href="/css/style.css">
+<script src="/js/config.js"></script>
+<script src="/js/core.js"></script>
+<style>
+  [hidden]{display:none!important}
+  body{padding:20px;display:flex;justify-content:center;align-items:flex-start}
+  .app{width:100%;max-width:400px;margin-top:10px}
+  .screen{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:12px;text-align:right;min-height:96px;display:flex;flex-direction:column;justify-content:flex-end}
+  .expr{font-size:2rem;font-weight:700;word-break:break-all;line-height:1.2}
+  .res{color:var(--muted);min-height:1.5em;font-size:1.1rem}
+  .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .key{background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:12px;padding:16px 0;font:inherit;font-size:1.2rem;font-weight:700;cursor:pointer;transition:.1s}
+  .key:hover{border-color:var(--accent)}.key:active{transform:scale(.95)}
+  .key.fn{color:var(--muted)}.key.op{color:var(--accent)}
+  .key.eq{grid-column:1/-1;background:var(--accent);color:var(--ink);border-color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="app panel">
+  <div class="screen"><div class="expr" id="cExpr">0</div><div class="res" id="cRes"></div></div>
+  <div class="keys" id="cKeys"></div>
+</div>
+<script>
+  // Small expression parser (no eval): + - × ÷ ( ) decimals and % (postfix, divides by 100)
+  function calc(src) {
+    const t = src.replace(/×/g, "*").replace(/÷/g, "/").match(/\d+\.?\d*(?:e[+-]?\d+)?|\.\d+|[()+\-*/%]/gi) || [];
+    let i = 0;
+    const peek = () => t[i], next = () => t[i++];
+    const pct = (v) => { while (peek() === "%") { next(); v /= 100; } return v; };
+    function factor() {
+      const tok = next();
+      if (tok === "-") return -factor();
+      if (tok === "+") return factor();
+      if (tok === "(") { const v = expr(); if (next() !== ")") throw new Error("paren"); return pct(v); }
+      if (tok === undefined || isNaN(+tok)) throw new Error("syntax");
+      return pct(+tok);
+    }
+    function term() { let v = factor(); while (peek() === "*" || peek() === "/") { const op = next(), r = factor(); v = op === "*" ? v * r : v / r; } return v; }
+    function expr() { let v = term(); while (peek() === "+" || peek() === "-") { const op = next(), r = term(); v = op === "+" ? v + r : v - r; } return v; }
+    const r = expr();
+    if (i < t.length) throw new Error("syntax");
+    return r;
+  }
+  const evaluate = (s) => { const r = calc(s); if (!isFinite(r)) throw new Error("math"); return String(+r.toPrecision(12)); };
+
+  const cExpr = document.getElementById("cExpr"), cRes = document.getElementById("cRes"), cKeys = document.getElementById("cKeys");
+  let expr = "", fresh = false;
+  const KEYS = [["C", "C", "fn"], ["⌫", "⌫", "fn"], ["(", "(", "fn"], [")", ")", "fn"],
+    ["7"], ["8"], ["9"], ["÷", "÷", "op"], ["4"], ["5"], ["6"], ["×", "×", "op"],
+    ["1"], ["2"], ["3"], ["−", "-", "op"], ["0"], ["."], ["%", "%", "op"], ["+", "+", "op"], ["=", "=", "eq"]];
+
+  function draw() {
+    cExpr.textContent = expr || "0";
+    let p = "";
+    if (expr) { try { const r = evaluate(expr); if (r !== expr) p = "= " + r; } catch {} }
+    cRes.textContent = p;
+  }
+  function press(v) {
+    if (v === "C") { expr = ""; fresh = false; return draw(); }
+    if (v === "⌫") { expr = fresh ? "" : expr.slice(0, -1); fresh = false; return draw(); }
+    if (v === "=") {
+      if (!expr) return;
+      try { expr = evaluate(expr); fresh = true; draw(); } catch { cRes.textContent = "Error"; }
+      return;
+    }
+    const isOp = "+-×÷%".includes(v);
+    if (fresh && !isOp) expr = "";
+    fresh = false;
+    if (isOp && v !== "%" && /[+\-×÷]$/.test(expr)) expr = expr.slice(0, -1);   // swap trailing operator
+    if (isOp && !expr && v !== "-") return;
+    expr += v; draw();
+  }
+  KEYS.forEach(([label, val, cls]) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "key " + (cls || ""); b.textContent = label;
+    b.addEventListener("click", () => press(val || label));
+    cKeys.append(b);
+  });
+  document.addEventListener("keydown", (e) => {
+    const k = e.key; let v = null;
+    if (/^[0-9.()]$/.test(k)) v = k;
+    else if (k === "+" || k === "-" || k === "%") v = k;
+    else if (k === "*" || k === "x" || k === "X") v = "×";
+    else if (k === "/") v = "÷";
+    else if (k === "Enter" || k === "=") v = "=";
+    else if (k === "Backspace") v = "⌫";
+    else if (k === "Escape" || k === "c" || k === "C") v = "C";
+    if (v) { e.preventDefault(); press(v); }
+  });
+  draw();
+</script>
+</body></html>

@@ -1,0 +1,26 @@
+[
+  { "title": "Calculator",
+    "url": "/assets/tools/calculator/index.html",
+    "icon": "🧮", "description": 
+    "Quick math with keyboard support.", 
+    "category": "Everyday" 
+  },
+  { "title": "Timer & Stopwatch",
+    "url": "/assets/tools/timer/index.html",
+    "icon": "⏱️",
+    "description": "Count down with an alarm, or time something.", 
+    "category": "Everyday" 
+  },
+  { "title": "Notepad", 
+    "url": "/assets/tools/notepad/index.html", 
+    "icon": "📝",
+    "description": "Notes that save automatically.", 
+    "category": "Everyday" 
+  },
+  { "title": "Emulator-JS", 
+    "url": "/assets/tools/emulator-js/index.html", 
+    "icon": "👾",
+    "description": "Emulator For All Sorts Of Games That Is Able To Be Used In Browser.", 
+    "category": "Gaming"
+  }
+]

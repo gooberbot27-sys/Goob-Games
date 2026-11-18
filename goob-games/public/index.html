@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Goob Games</title>
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/png" href="/assets/img/favicon.png?v=2">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=2">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/changelog.css">
+<script src="/js/config.js"></script>
+<script src="/js/core.js"></script>
+</head>
+<body data-page="home">
+<div class="snow" id="snow"></div>
+<div id="nav"></div>
+<main class="container home">
+  <section class="hero2">
+    <div>
+      <div class="logo-frame">
+        <img src="/assets/img/logo-hero.webp" alt="Goob, a penguin wearing a headset and playing a game on the couch" width="900" height="900" fetchpriority="high">
+        <div class="bubble">Hank Got Aura FR 😎</div>
+      </div>
+      <div class="topline">
+        <span class="badge">Version 1.0.0</span>
+        <button class="pill" id="clBtn" type="button">📜 Changelog<i class="dot" id="clDot" hidden></i></button>
+      </div>
+      <h1>Welcome to <span>Goob Games</span></h1>
+      <form class="searchbar" id="q">
+        <input type="text" id="qi" placeholder="Search the web or enter a URL" autocomplete="off" spellcheck="false">
+        <button class="btn">Go</button>
+      </form>
+    </div>
+    <div class="tiles side">
+      <a class="tile" href="/games"><div class="ic">🎮</div><b>Games</b><span class="muted">Slide Into The Game Library</span></a>
+      <a class="tile" href="/movies"><div class="ic">🎞️</div><b>Movies</b><span class="muted">Huddle Up With Your Favorite films</span></a>
+      <a class="tile" href="/proxy"><div class="ic">🧊</div><b>Browser</b><span class="muted">Glide Across The Web</span></a>
+      <a class="tile" href="/settings"><div class="ic">⚙️</div><b>Settings</b><span class="muted">Make Goob Games Yours</span></a>
+    </div>
+  </section>
+
+
+  <section id="favWrap" hidden><h2>⭐ Favorites</h2><div class="grid" id="favs"></div><br></section>
+  <section id="rndWrap" hidden><h2>Play something</h2><div class="grid" id="rnd"></div></section>
+</main>
+<div id="footer"></div>
+<div class="cl-overlay" id="clOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="clTitle">
+  <div class="cl-box">
+    <div class="cl-head">
+      <h2 id="clTitle">📜 What's new</h2>
+      <button class="btn ghost small" id="clClose" type="button">✕ Close</button>
+    </div>
+    <div class="cl-body" id="clBody"></div>
+  </div>
+</div>
+
+<script src="/js/home.js"></script>
+<script src="/js/changelog.js"></script>
+</body></html>

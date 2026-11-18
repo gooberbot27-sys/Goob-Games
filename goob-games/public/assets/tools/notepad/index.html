@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Notepad</title>
+<link rel="stylesheet" href="/css/style.css">
+<script src="/js/config.js"></script>
+<script src="/js/core.js"></script>
+<style>
+  body{padding:20px;display:flex;justify-content:center}
+  .app{width:100%;max-width:900px;margin-top:10px;display:flex;flex-direction:column;height:calc(100vh - 60px);min-height:320px}
+  #note{flex:1;width:100%;resize:none;background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:12px;padding:14px 16px;font:inherit;line-height:1.55;outline:none;margin-bottom:12px}
+  #note:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
+</style>
+</head>
+<body>
+<div class="app panel">
+  <textarea id="note" placeholder="Type anything. It saves automatically." spellcheck="true" autofocus></textarea>
+  <div class="row" style="justify-content:space-between;margin:0">
+    <span class="muted" id="status">Saved ✓</span>
+    <span class="muted" id="count">0 words</span>
+    <span class="row" style="margin:0">
+      <button class="btn ghost small" id="dl" type="button">⬇ Download .txt</button>
+      <button class="btn ghost small" id="clear" type="button">Clear</button>
+    </span>
+  </div>
+</div>
+<script>
+  const ta = document.getElementById("note"), status = document.getElementById("status"), count = document.getElementById("count"), KEY = "goob:notes";
+  try { ta.value = localStorage.getItem(KEY) || ""; } catch {}
+  const upd = () => { const w = ta.value.trim().match(/\S+/g), n = w ? w.length : 0; count.textContent = n + (n === 1 ? " word" : " words"); };
+  let timer;
+  ta.addEventListener("input", () => {
+    status.textContent = "Saving…"; upd(); clearTimeout(timer);
+    timer = setTimeout(() => { try { localStorage.setItem(KEY, ta.value); status.textContent = "Saved ✓"; } catch { status.textContent = "Couldn't save (storage is blocked)"; } }, 400);
+  });
+  document.getElementById("dl").addEventListener("click", () => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([ta.value], { type: "text/plain" })); a.download = "goob-notes.txt";
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  });
+  document.getElementById("clear").addEventListener("click", () => {
+    if (ta.value && !confirm("Clear your notes? This can't be undone.")) return;
+    ta.value = ""; try { localStorage.removeItem(KEY); } catch {} status.textContent = "Saved ✓"; upd();
+  });
+  upd();
+</script>
+</body></html>

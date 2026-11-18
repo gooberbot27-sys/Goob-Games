@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Games · Goob Games</title>
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/png" href="/assets/img/favicon.png?v=2">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png?v=2">
+<link rel="stylesheet" href="/css/style.css">
+<script src="/js/config.js"></script>
+<script src="/js/core.js"></script>
+</head>
+<body data-page="games">
+<div id="nav"></div>
+<main class="container">
+  <h1>Games</h1>
+  <div class="toolbar">
+    <input class="grow" type="search" id="s" placeholder="Search games…" autocomplete="off">
+    <button class="chip" id="favOnly">★ Favorites</button>
+  </div>
+  <div class="chips" id="cats"></div>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" hidden></div>
+</main>
+<div id="footer"></div>
+<div class="player" id="player" hidden>
+  <div class="pbar">
+    <button class="btn ghost small" id="pClose">← Back</button><b id="pTitle"></b><span class="sp"></span>
+    <button class="btn ghost small" id="pFs">⛶ Fullscreen</button>
+  </div>
+  <iframe id="pFrame" allow="fullscreen; autoplay; gamepad; clipboard-write" referrerpolicy="no-referrer"></iframe>
+</div>
+<script src="/js/games.js"></script>
+</body></html>

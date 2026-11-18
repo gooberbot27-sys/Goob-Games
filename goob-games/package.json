@@ -1,0 +1,16 @@
+{
+  "name": "goob-games",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/copy-libs.js && node scripts/scan.js",
+    "dev": "npm run build && npx serve public -l 3000"
+  },
+  "dependencies": {
+    "@mercuryworkshop/bare-mux": "latest",
+    "@mercuryworkshop/epoxy-transport": "^3.0.2",
+    "@mercuryworkshop/libcurl-transport": "latest",
+    "@mercuryworkshop/scramjet": "^2.0.67-alpha.2"
+  }
+}

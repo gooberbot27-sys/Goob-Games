@@ -1,0 +1,23 @@
+[
+
+  {
+    "version": "1.0.0",
+    "date": "Nov 15, 2026",
+    "title": "Goob Games launch",
+    "changes": [
+      { "type": "new", "text": "Games Library With Search, Categories And Favorites." },
+      { "type": "new", "text": "Movies Page For Our Films Collection." },
+      { "type": "new", "text": "Browser Powered By Scramjet, With A Choice Of Wisp Servers And Relay Types." },
+      { "type": "new", "text": "Settings With Themes, Proxy Options, And A Privacy Tab With Tab Cloaks And A Panic Key." }
+    ]
+  },
+  
+  {
+    "version": "Pre-Realese",
+    "date": "Nov 2, 2026",
+    "title": "Goob Games Official Site Started In Development",
+    "changes": [
+      { "type": "new", "text": "The New Goob Games Stie Was Officially Put Into Development" }
+    ]
+  }
+]
