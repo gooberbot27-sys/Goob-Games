@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Calculator",
+    "url": "/assets/tools/calculator/index.html",
+    "icon": "🧩",
+    "description": "",
+    "category": "Tools"
+  },
+  {
+    "title": "Emulator Js",
+    "url": "/assets/tools/emulator-js/index.html",
+    "icon": "🧩",
+    "description": "",
+    "category": "Tools"
+  },
+  {
+    "title": "Notepad",
+    "url": "/assets/tools/notepad/index.html",
+    "icon": "🧩",
+    "description": "",
+    "category": "Tools"
+  },
+  {
+    "title": "Timer",
+    "url": "/assets/tools/timer/index.html",
+    "icon": "🧩",
+    "description": "",
+    "category": "Tools"
+  }
+]
